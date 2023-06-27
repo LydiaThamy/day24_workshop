@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Order Form</title>
+</head>
+
+<body>
+    <div class="container">
+    <h1>Welcome to My Store!</h1>
+
+    <div th:if="${timeout}"><span th:text="${timeout}" style="color: red;"></span></div>
+
+    <h3>Create Order</h3>
+
+
+        <form action="/api/my-store/order-details" method="post" th:object="${myOrder}">
+            
+        <p class="form-label">Customer name: <input type="text" class="form-control" th:field="*{customerName}"></p>
+        <p class="form-label">Shipping address: <input type="text" class="form-control" th:field="*{shipAddress}"></p>
+        <p class="form-label">Notes: <input type="text" class="form-control" th:field="*{notes}"></p>
+        <p class="form-label">Tax: <input type="number" class="form-control" step="0.01" th:field="*{tax}"></p>
+        
+        <div th:if="${#fields.hasAnyErrors()}" style="color: red;">
+            <p th:each="err : ${#fields.allErrors()}" th:text="${err}"></p>
+        </div>
+
+        <button type="submit">Next</button>
+    </form>
+    
+</div>
+</body>
+
+</html>

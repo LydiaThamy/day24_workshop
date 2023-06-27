@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstdap@5.3.0/dist/css/bootstdap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <style>
+            .button {
+              display: inline-block;
+              padding: 10px 20px;
+              text-align: center;
+              text-decoration: none;
+              color: #ffffff;
+              background-color: #7aa8b7;
+              border-radius: 6px;
+              outline: none;
+              transition: 0.3s;
+            }
+            .button:hover {
+              background-color: #c2c7c7;
+            }
+          </style>
+    <title>Submitted Order</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <div th:object="${myOrder}">
+
+            <table>
+                <tr>
+                    <td>Order ID:</td>
+                    <td><span th:text="*{orderId}"></span></td>
+                </tr>
+                <tr>
+                    <td>Order date:</td>
+                    <td><span th:text="*{orderDate}"></span></td>
+                </tr>
+                <tr>
+                    <td>Customer name:</td>
+                    <td><span th:text="*{customerName}"></span></td>
+                </tr>
+                <tr>
+                    <td>Ship address:</td>
+                    <td><span th:text="*{shipAddress}"></span></td>
+                </tr>
+                <tr th:if="*{notes}">
+                    <td>Notes:</td>
+                    <td><span th:text="*{notes}"></span></td>
+                </tr>
+                <tr>
+                    <td>Tax:</td>
+                    <td><span th:text="*{tax}"></span></td>
+                </tr>
+            </table>
+
+        </div>
+
+        <br>
+
+        <table style="text-align: center;" border="2px">
+            <thead style="font-weight: 700;">
+                <tr>
+                    <td>Order Details ID</td>
+                    <td>Product</td>
+                    <td>Unit price</td>
+                    <td>Discount</td>
+                    <td>Quantity</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="myOrderDetails : ${myOrderDetailsList}" th:object="${myOrderDetails}">
+                    <td><span th:text="*{id}"></span></td>
+                    <td><span th:text="*{product}"></span></td>
+                    <td><span th:text="*{unitPrice}"></span></td>
+                    <td><span th:text="*{discount}"></span></td>
+                    <td><span th:text="*{quantity}"></span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <form action="/api/my-store" method="get">
+            <button type="submit">New order</button>
+        </form>
+
+    </div>
+
+</body>
+
+</html>
